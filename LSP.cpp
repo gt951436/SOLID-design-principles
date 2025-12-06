@@ -118,39 +118,43 @@ public:
     }
 };
 
-// LSP solved : wrong method : checking account type by clinet
-class BankClient
-{
-private:
-    vector<Account *> accounts;
+// LSP solved : wrong method : checking account type by client
+// it breaks OCP as well
 
-public:
-    BankClient(vector<Account *> accounts)
-    {
-        this->accounts = accounts;
-    }
-    void processTranactions()
-    {
-        for (Account *acc : accounts)
-        {
-            acc->deposit(1000); // all accs allow deposit
-            if (typeid(*acc) == typeid(fixedTermAccount))
-            {
-                cout << "Skipping transactions for fixed term account." << endl;
-                continue;
-            }
-            // assuming all accs support withdrawl (LSP Violation)
-            try
-            {
-                acc->withdraw(500);
-            }
-            catch (const logic_error &e)
-            {
-                cout << "Exception: " << e.what() << '\n';
-            }
-        }
-    }
-};
+// class BankClient
+// {
+// private:
+//     vector<Account *> accounts;
+// public:
+//     BankClient(vector<Account *> accounts)
+//     {
+//         this->accounts = accounts;
+//     }
+//     void processTranactions()
+//     {
+//         for (Account *acc : accounts)
+//         {
+//             acc->deposit(1000); // all accs allow deposit
+//             if (typeid(*acc) == typeid(fixedTermAccount))
+//             {
+//                 cout << "Skipping transactions for fixed term account." << endl;
+//                 continue;
+//             }
+//             // assuming all accs support withdrawl (LSP Violation)
+//             try
+//             {
+//                 acc->withdraw(500);
+//             }
+//             catch (const logic_error &e)
+//             {
+//                 cout << "Exception: " << e.what() << '\n';
+//             }
+//         }
+//     }
+// };
+
+
+
 int main()
 {
     vector<Account *> accounts;
